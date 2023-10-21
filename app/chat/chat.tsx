@@ -1,4 +1,4 @@
-import { MessageBar } from "./components/messageBar";
+import { MessageBar } from "./components/messagesBar";
 
 export function Chat(){
 	return (

@@ -1,5 +1,5 @@
 import { Chat } from "./chat/chat";
-import { AppContexts } from "./chat/components/navbar/contexts";
+import { AppContexts } from "./chat/components/messagesNavbar/contexts";
 
 export default function Home() {
   return (

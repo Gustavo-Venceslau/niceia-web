@@ -1,7 +1,7 @@
 "use client";
 
-import { useNavbarContext } from "./navbar/contexts/navbarContext";
-import { Navbar } from "./navbar/navbar";
+import { useNavbarContext } from "./messagesNavbar/contexts/navbarContext";
+import { Navbar } from "./messagesNavbar/navbar";
 import { motion } from "framer-motion";
 
 export function MessageBar(){
