@@ -1,4 +1,4 @@
-import { UserComponent } from "./userComponent";
+import { UserComponent } from "./components/userComponent";
 import { FiSearch } from 'react-icons/fi';
 import { AiTwotonePhone } from 'react-icons/ai';
 import { SlOptionsVertical } from 'react-icons/sl';
