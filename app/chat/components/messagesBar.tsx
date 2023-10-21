@@ -15,7 +15,7 @@ export function MessageBar(){
 			animate={{ width: messageBarSize }}
 			transition={{ ease: "easeOut" }}
 			initial={false}
-			className={`h-screen border-r-[1px] border-stone-200 overflow-hidden relative`}
+			className={`h-screen border-r-[1px] py-4 px-4 border-stone-200 overflow-hidden relative`}
 		>
 			<Navbar />
 		</motion.section>

@@ -13,7 +13,7 @@ export function Navbar() {
 	}
 
 	return (
-		<nav className="w-full h-10 py-8 px-4 flex flex-row gap-5 items-center">
+		<nav className="w-full h-10 flex flex-row gap-5 items-center">
 			<button
 				className='w-6 h-6'
 				onClick={() => handleNavbar()}
