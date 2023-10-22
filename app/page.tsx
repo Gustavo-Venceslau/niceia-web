@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Chat } from "./chat/chat";
-import { AppContexts } from "./chat/components/messagesNavbar/navbar/contexts";
+import { AppContexts } from "./chat/components/messagesNavbar/components/navbar/contexts";
 import { UserContext } from "./chat/components/userForm/contexts";
 import { UserForm } from "./chat/components/userForm/userForm";
 

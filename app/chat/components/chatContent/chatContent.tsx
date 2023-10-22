@@ -1,5 +1,5 @@
-import { ChatNavbar } from "./chatNavbar/chatNavbar";
-import { MessagesContent } from "./messagesContent/messagesContent";
+import { ChatNavbar } from "./components/chatNavbar/chatNavbar";
+import { MessagesContent } from "./components/messagesContent/messagesContent";
 
 export function ChatContent(){
 	return (
