@@ -7,13 +7,13 @@ import { UserContext } from "./chat/components/userForm/contexts";
 import { UserForm } from "./chat/components/userForm/userForm";
 
 export default function Home() {
-	const [username, setUsername] = useState("");
+	const [usernamed, setUsernamed] = useState("");
 
 	return (
 		<AppContexts>
 			<UserContext>
 				<main>
-					<UserForm username={username} setUsername={setUsername}/>
+					<UserForm username={usernamed} setUsername={setUsernamed}/>
 					<Chat />
 				</main>
 			</UserContext>

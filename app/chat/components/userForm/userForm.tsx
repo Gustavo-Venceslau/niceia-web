@@ -3,14 +3,18 @@
 import { useForm } from "react-hook-form";
 import { IUserForm } from "./interfaces/iUserForm";
 import { IUserFormContext } from "./interfaces/iUserFormContext";
+import { useUserFormContext } from "./contexts";
 
 export function UserForm({ username, setUsername }: IUserFormContext) {
 
 	const { register, handleSubmit } = useForm<IUserForm>();
+	const form = useUserFormContext();
 
 	function HandleUserFormData({name}: IUserForm) {
 		setUsername(name);
 	}
+
+	form.setUsername(username);
 
 	const userFormDisplay = username.length > 0 ? "hidden" : "flex"
 
