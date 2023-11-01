@@ -1,11 +1,11 @@
 "use client";
 
+import { useAuthContext } from '@/contexts/authContext';
 import { FaCircleUser } from 'react-icons/fa6';
-import { useUserFormContext } from '../../../../userForm/contexts';
 
 export function UserComponent(){
 
-	const {username} = useUserFormContext();
+	const {username} = useAuthContext();
 
 	return(
 		<button className="w-full flex items-center gap-2">

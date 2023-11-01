@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState } from "react";
-import { INavbarContext } from "../interfaces/iNavbarContext";
+import { INavbarContext } from "../app/chat/interfaces/iNavbarContext";
 
 const NavbarContext = createContext<INavbarContext>(null!);
 

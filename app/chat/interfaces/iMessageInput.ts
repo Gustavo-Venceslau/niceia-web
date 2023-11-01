@@ -1,3 +1,3 @@
 export interface IMessageInput {
-	username: string
+	message: string
 }

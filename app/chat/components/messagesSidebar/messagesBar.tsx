@@ -1,9 +1,9 @@
 "use client";
 
-import { ChatList } from "./components/chatList/chatList";
-import { useNavbarContext } from "./components/navbar/contexts/navbarContext";
-import { Navbar } from "./components/navbar/navbar";
+import { useNavbarContext } from "../../../../contexts/navbarContext";
 import { motion } from "framer-motion";
+import { Navbar } from "./components/navbar/navbar";
+import { ChatList } from "./components/chatList/chatList";
 
 export function MessageBar(){
 

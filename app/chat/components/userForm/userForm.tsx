@@ -2,21 +2,63 @@
 
 import { useForm } from "react-hook-form";
 import { IUserForm } from "./interfaces/iUserForm";
-import { IUserFormContext } from "./interfaces/iUserFormContext";
-import { useUserFormContext } from "./contexts";
+import { useAuthContext } from "../../../../contexts/authContext";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
+import { OnError } from "@/app/chat/services/onError";
+import { IChatMessage } from "../../interfaces/iChatMessage";
+import { EventMessage } from "../chatContent/components/messagesContent/components/eventMessage";
+import { useMessagesContext } from "@/contexts/messagesContext";
+import { Message } from "../chatContent/components/messagesContent/components/message/message";
+import { useConnectingContext } from "@/contexts/connectingContext";
 
-export function UserForm({ username, setUsername }: IUserFormContext) {
+export var socket: WebSocket;
+export var stompClient: Stomp.Client;
+
+export function UserForm() {
 
 	const { register, handleSubmit } = useForm<IUserForm>();
-	const form = useUserFormContext();
+	const form = useAuthContext();
+	const { setMessages } = useMessagesContext();
+	const { connected, setConnected} = useConnectingContext();
 
 	function HandleUserFormData({name}: IUserForm) {
-		setUsername(name);
+		if(name){
+			socket = new SockJS("http://localhost:8080/ws");
+			stompClient = Stomp.over(socket);
+			
+			stompClient.connect({}, onConnected, OnError);
+		};
 	}
 
-	form.setUsername(username);
+	const onConnected = () => {
+		setConnected(true);
+		stompClient.subscribe("/topic/public", onMessageReceived);
+		stompClient.send("/app/chat.addUser",
+			{},
+			JSON.stringify({ sender: form.username, type: "JOIN" })
+		);
+	}
 
-	const userFormDisplay = username.length > 0 ? "hidden" : "flex"
+	const onMessageReceived = (payload: any) => {
+		var message: IChatMessage = JSON.parse(payload.body);
+	
+	
+		if(message.type === "JOIN"){
+			const eventMessage = <EventMessage message={message.sender + " joined!"}/>
+			setMessages(prev => [...prev, eventMessage]);
+		}
+		else if(message.type === "LEAVE"){
+			const eventMessage = <EventMessage message={message.sender + " leaft!"}/>;
+			setMessages(prev => [...prev, eventMessage]);
+		}
+		else {
+			const messageComponent = <Message message={message.content}/>;
+			setMessages(prev => [...prev, messageComponent]);
+		}
+	}
+
+	const userFormDisplay = connected ? "hidden" : "flex"
 
 	return (
 		<div 
@@ -31,7 +73,9 @@ export function UserForm({ username, setUsername }: IUserFormContext) {
 					<input
 						{...register("name")}
 						type="text"
+						id="name"
 						placeholder="John Doe"
+						onChange={e => form.setUsername(e.target.value)}
 						className="bg-[#F5F5F5] outline-none w-full h-10 p-2 rounded-lg"
 					/>
 					<button 

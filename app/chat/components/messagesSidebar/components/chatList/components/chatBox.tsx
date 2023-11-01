@@ -1,6 +1,6 @@
 "use client"
 
-import { useNavbarContext } from "../../navbar/contexts/navbarContext"
+import { useNavbarContext } from "../../../../../../../contexts/navbarContext"
 
 export function ChatBox(){
 

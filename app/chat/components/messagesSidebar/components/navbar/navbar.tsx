@@ -2,7 +2,7 @@
 
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { FiSearch } from 'react-icons/fi';
-import { useNavbarContext } from './contexts/navbarContext';
+import { useNavbarContext } from '../../../../../../contexts/navbarContext';
 
 export function Navbar() {
 

@@ -1,11 +1,15 @@
 import { MessageText } from "./components/messageText"
 import { MessageUser } from "./components/messageUser"
 
-export function Message() {
+interface MessageProps {
+	message: string;
+}
+
+export function Message({ message }: MessageProps) {
 	return (
 		<div className="flex gap-3">
 			<MessageUser />
-			<MessageText message='OMG 😲 do you remember what you did last night at the work night out?'/>
+			<MessageText message={message}/>
 		</div>
 	)
 }
