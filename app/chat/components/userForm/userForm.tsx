@@ -11,6 +11,7 @@ import { EventMessage } from "../chatContent/components/messagesContent/componen
 import { useMessagesContext } from "@/contexts/messagesContext";
 import { Message } from "../chatContent/components/messagesContent/components/message/message";
 import { useConnectingContext } from "@/contexts/connectingContext";
+import { pickRandomColor } from "../chatContent/components/messagesContent/components/message/functions/PickRandomColor";
 
 export var socket: WebSocket;
 export var stompClient: Stomp.Client;
@@ -42,8 +43,9 @@ export function UserForm() {
 
 	const onMessageReceived = (payload: any) => {
 		var message: IChatMessage = JSON.parse(payload.body);
-	
-	
+
+		const color = pickRandomColor(message.sender);
+
 		if(message.type === "JOIN"){
 			const eventMessage = <EventMessage message={message.sender + " joined!"}/>
 			setMessages(prev => [...prev, eventMessage]);
@@ -53,7 +55,7 @@ export function UserForm() {
 			setMessages(prev => [...prev, eventMessage]);
 		}
 		else {
-			const messageComponent = <Message message={message.content}/>;
+			const messageComponent = <Message message={message.content} color={color} icon={message.sender[0]}/>;
 			setMessages(prev => [...prev, messageComponent]);
 		}
 	}
