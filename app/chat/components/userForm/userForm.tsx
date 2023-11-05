@@ -55,7 +55,12 @@ export function UserForm() {
 			setMessages(prev => [...prev, eventMessage]);
 		}
 		else {
-			const messageComponent = <Message message={message.content} color={color} icon={message.sender[0]}/>;
+			const messageComponent = <Message 
+										message={message.content} 
+										color={color} 
+										icon={message.sender[0]}
+										isSender={message.sender === form.username}
+									/>;
 			setMessages(prev => [...prev, messageComponent]);
 		}
 	}
