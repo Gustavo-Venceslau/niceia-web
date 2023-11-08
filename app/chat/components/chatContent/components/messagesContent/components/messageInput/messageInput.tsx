@@ -12,36 +12,36 @@ import { useState } from 'react';
 
 export function MessagesInput(){
 	const { username } = useAuthContext();
+
+
 	const [isVisible, setIsVisible] = useState(false);
 	const [inputValue, setInputValue] = useState("");
 
-	const { register, handleSubmit } = useForm<IMessageInput>();
+	const { register, handleSubmit, getValues, setValue } = useForm<IMessageInput>();
 
 	const sendMessage = ({message}: IMessageInput) => {
+		console.log(getValues('message'))
 		if(message && stompClient) {
 			var chatMessage = {
 				sender: username,
-				content: inputValue,
+				content: message,
 				type: 'CHAT'
 			};
 			stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-			setInputValue("");
 		}
+		setValue('message', '');
 	}
 
 	const handleEmojiSelect = (emoji: string) => {
-		setInputValue(prev => prev + emoji);
+		const inputValue = getValues('message');
+		setValue('message', inputValue + emoji);
 		setIsVisible(false);
 	};
 
-	const handleEnterKeyPress = (key: string) => {
-		if(key === 'Enter'){
-			handleSubmit(sendMessage);
-		}
-	}
-
 	return(
-		<div className="w-full flex py-4 px-4 justify-between gap-4 items-center bg-white rounded-xl mb-8 relative">
+		<div
+			className="w-full flex py-4 px-4 justify-between gap-4 items-center bg-white rounded-xl mb-8 relative"
+		>
 			<div
 				className='absolute select-none -translate-y-64 -translate-x-2'
 			>
@@ -70,9 +70,6 @@ export function MessagesInput(){
 					id="message"
 					placeholder='Message'
 					className='w-full h-8 outline-none'
-					onChange={(e) => setInputValue(e.target.value)}
-					onKeyDown={(e) => handleEnterKeyPress(e.key)}
-					value={inputValue}
 				/>
 				<button
 					type='submit'

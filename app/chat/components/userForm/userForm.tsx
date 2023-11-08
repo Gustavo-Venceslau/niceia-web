@@ -11,7 +11,7 @@ import { EventMessage } from "../chatContent/components/messagesContent/componen
 import { useMessagesContext } from "@/contexts/messagesContext";
 import { Message } from "../chatContent/components/messagesContent/components/message/message";
 import { useConnectingContext } from "@/contexts/connectingContext";
-import { pickRandomColor } from "../chatContent/components/messagesContent/components/message/functions/PickRandomColor";
+import { pickRandomColor } from "../../functions/PickRandomColor";
 
 export var socket: WebSocket;
 export var stompClient: Stomp.Client;
