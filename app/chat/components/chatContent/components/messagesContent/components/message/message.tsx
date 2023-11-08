@@ -14,7 +14,7 @@ export function Message({ message, color, icon, isSender}: MessageProps) {
 	const messageDisplay = isSender ? "flex-row-reverse" : ""
 
 	return (
-		<div className={`w-full flex ${alignMessage}`}>
+		<div className={`w-full flex ${alignMessage} py-3`}>
 			<div className={`flex gap-3 ${messageDisplay}`}>
 				<MessageUser color={color} icon={icon} />
 				<MessageText message={message} isSender={isSender} />
