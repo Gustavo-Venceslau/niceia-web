@@ -11,7 +11,7 @@ export function MessagesContent() {
 	return (
 		<div className="w-full h-full flex flex-col justify-end">
 			<div 
-				className="w-full h-full max-h-screen overflow-y-auto">
+				className="w-full h-full overflow-y-auto">
 				<Connecting />
 				{messages.map(message => message)}
 			</div>

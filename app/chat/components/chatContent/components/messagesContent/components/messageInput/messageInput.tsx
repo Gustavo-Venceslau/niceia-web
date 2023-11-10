@@ -13,14 +13,11 @@ import { useState } from 'react';
 export function MessagesInput(){
 	const { username } = useAuthContext();
 
-
 	const [isVisible, setIsVisible] = useState(false);
-	const [inputValue, setInputValue] = useState("");
 
 	const { register, handleSubmit, getValues, setValue } = useForm<IMessageInput>();
 
 	const sendMessage = ({message}: IMessageInput) => {
-		console.log(getValues('message'))
 		if(message && stompClient) {
 			var chatMessage = {
 				sender: username,

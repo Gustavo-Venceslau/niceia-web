@@ -18,26 +18,28 @@ export var stompClient: Stomp.Client;
 
 export function UserForm() {
 
-	const { register, handleSubmit } = useForm<IUserForm>();
-	const form = useAuthContext();
+	const { register, handleSubmit, getValues } = useForm<IUserForm>();
+	const { setUsername } = useAuthContext();
 	const { setMessages } = useMessagesContext();
 	const { connected, setConnected} = useConnectingContext();
 
 	function HandleUserFormData({name}: IUserForm) {
+		setUsername(name);
 		if(name){
 			socket = new SockJS("http://localhost:8080/ws");
 			stompClient = Stomp.over(socket);
-			
 			stompClient.connect({}, onConnected, OnError);
 		};
 	}
 
 	const onConnected = () => {
+		const sender = getValues('name');
+
 		setConnected(true);
 		stompClient.subscribe("/topic/public", onMessageReceived);
 		stompClient.send("/app/chat.addUser",
 			{},
-			JSON.stringify({ sender: form.username, type: "JOIN" })
+			JSON.stringify({ sender: sender, type: "JOIN" })
 		);
 	}
 
@@ -45,6 +47,7 @@ export function UserForm() {
 		var message: IChatMessage = JSON.parse(payload.body);
 
 		const color = pickRandomColor(message.sender);
+		const sender = getValues('name');
 
 		if(message.type === "JOIN"){
 			const eventMessage = <EventMessage message={message.sender + " joined!"}/>
@@ -59,7 +62,7 @@ export function UserForm() {
 										message={message.content} 
 										color={color} 
 										icon={message.sender[0]}
-										isSender={message.sender === form.username}
+										isSender={message.sender === sender}
 									/>;
 			setMessages(prev => [...prev, messageComponent]);
 		}
@@ -82,7 +85,6 @@ export function UserForm() {
 						type="text"
 						id="name"
 						placeholder="John Doe"
-						onChange={e => form.setUsername(e.target.value)}
 						className="bg-[#F5F5F5] outline-none w-full h-10 p-2 rounded-lg"
 					/>
 					<button 
